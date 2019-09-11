@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">FilterListLib</string>
+    <string name="finish_button">Finish</string>
 </resources>

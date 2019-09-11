@@ -3,6 +3,9 @@ package com.deb452.filterlistlib;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -30,6 +33,7 @@ public class SelectObjectListActivity extends AppCompatActivity {
 
     //views
     private RecyclerView itemListRV, selectedListRV;
+    private Button finishButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,21 +55,28 @@ public class SelectObjectListActivity extends AppCompatActivity {
         itemListAdapter = new ItemListAdapter(context, listModelList);
         selectedListAdapter = new SelectedListAdapter(context, selectedListModelList);
 
+
+
         itemListAdapter.setRecyclerViewOnClickListener(position -> {
             if (selectedListModelList.size() < limitSize) {
                 selectedListModelList.add(listModelList.get(position));
                 selectedListRV.smoothScrollToPosition(position);
                 selectedListAdapter.notifyDataSetChanged();
+                finishButton.setVisibility(View.GONE);
             } else {
                 System.out.println("Full Selected List");
-                finishPicking(selectedListModelList);
+                Toast.makeText(context, "You can select only " + limitSize + " items", Toast.LENGTH_SHORT).show();
+                finishButton.setVisibility(View.VISIBLE);
             }
         });
 
         selectedListAdapter.setRecyclerViewOnClickListener(position -> {
             selectedListModelList.remove(position);
             selectedListAdapter.notifyDataSetChanged();
+            finishButton.setVisibility(View.GONE);
         });
+
+        finishButton.setOnClickListener(view -> finishPicking(selectedListModelList));
 
         selectedListRV.setAdapter(selectedListAdapter);
         itemListRV.setAdapter(itemListAdapter);
@@ -81,6 +92,7 @@ public class SelectObjectListActivity extends AppCompatActivity {
     private void init() {
         itemListRV = findViewById(R.id.itemListRV);
         selectedListRV = findViewById(R.id.selectedListRV);
+        finishButton = findViewById(R.id.finishButton);
 
         itemListRV.setLayoutManager(new LinearLayoutManager(context));
         itemListRV.addItemDecoration(new LineDividerDecoration(getDrawable(R.drawable.divider)));
