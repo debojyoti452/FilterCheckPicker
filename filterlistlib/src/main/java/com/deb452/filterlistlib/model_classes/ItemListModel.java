@@ -7,23 +7,13 @@ import java.io.Serializable;
 @Keep
 public class ItemListModel implements Serializable {
 
-    public int id;
     public String nameList;
 
     public ItemListModel() {
     }
 
-    public ItemListModel(int id, String nameList) {
-        this.id = id;
+    public ItemListModel(String nameList) {
         this.nameList = nameList;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public String getNameList() {

@@ -1,17 +1,21 @@
 package com.deb452.filtercheck
 
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.View
+import android.util.Log
 import android.widget.Button
+import androidx.appcompat.app.AppCompatActivity
 import com.deb452.filterlistlib.SelectObjectListActivity
+import com.deb452.filterlistlib.helper_classes.FilterCheck
 import com.deb452.filterlistlib.model_classes.ItemListModel
 
 class MainActivity : AppCompatActivity() {
 
+    private var REQUEST_CODE = 5
     private var listItem: ArrayList<ItemListModel> = ArrayList()
+    private var selectedList: ArrayList<ItemListModel> = ArrayList()
     private var button: Button? = null
     private var context: Context = this
 
@@ -24,31 +28,40 @@ class MainActivity : AppCompatActivity() {
         button!!.setOnClickListener {
             listItem = generateListItem()
 
-            try {
-                val intent = Intent().setClass(
-                    context,
-                    Class.forName("com.deb452.filterlistlib.SelectObjectListActivity")
-                )
-                intent.putExtra("listModelKey", listItem)
-                startActivity(intent)
-            } catch (e: ClassNotFoundException) {
-                e.printStackTrace()
+            FilterCheck.Builder(this)
+                .setLists(listItem)
+                .setLimitsOfSelections(3)
+                .GetPickerForResult(REQUEST_CODE)
+        }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == REQUEST_CODE && resultCode == Activity.RESULT_OK && data != null && data.extras != null) {
+            selectedList =
+                data.getSerializableExtra(SelectObjectListActivity.RESULT_SELECTED_LIST_KEY) as ArrayList<ItemListModel>
+
+            for (i in 0 until selectedList.size){
+                Log.d("GotList", selectedList[i].getNameList())
             }
+
+        } else {
+            throw Exception("Not get any data..")
         }
     }
 
     private fun generateListItem(): ArrayList<ItemListModel> {
         val list: ArrayList<ItemListModel> = ArrayList()
-        list.add(ItemListModel(1, "Sun"))
-        list.add(ItemListModel(2, "Mercury"))
-        list.add(ItemListModel(3, "Venus"))
-        list.add(ItemListModel(4, "Earth"))
-        list.add(ItemListModel(5, "Mars"))
-        list.add(ItemListModel(6, "Jupiter"))
-        list.add(ItemListModel(7, "Saturn"))
-        list.add(ItemListModel(8, "Neptune"))
-        list.add(ItemListModel(9, "Uranus"))
-        list.add(ItemListModel(10, "Pluto"))
+        list.add(ItemListModel("Sun"))
+        list.add(ItemListModel("Mercury"))
+        list.add(ItemListModel("Venus"))
+        list.add(ItemListModel("Earth"))
+        list.add(ItemListModel("Mars"))
+        list.add(ItemListModel("Jupiter"))
+        list.add(ItemListModel("Saturn"))
+        list.add(ItemListModel("Neptune"))
+        list.add(ItemListModel("Uranus"))
+        list.add(ItemListModel("Pluto"))
         return list
     }
 }

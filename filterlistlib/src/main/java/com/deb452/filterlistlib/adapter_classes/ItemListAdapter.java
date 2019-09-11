@@ -37,8 +37,6 @@ public class ItemListAdapter extends RecyclerView.Adapter<ItemListAdapter.ItemLi
     public void onBindViewHolder(@NonNull final ItemListVH holder, int position) {
         ItemListModel itemListModel = itemListModelList.get(position);
         holder.itemNameTV.setText(itemListModel.getNameList());
-
-        holder.itemView.setOnClickListener(view -> recyclerViewOnClickListener.onClicked(holder.getAdapterPosition()));
     }
 
     @Override
@@ -56,6 +54,13 @@ public class ItemListAdapter extends RecyclerView.Adapter<ItemListAdapter.ItemLi
         public ItemListVH(@NonNull View itemView) {
             super(itemView);
             itemNameTV = itemView.findViewById(R.id.itemNameTextView);
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    recyclerViewOnClickListener.onClicked(getAdapterPosition());
+                }
+            });
         }
     }
 }

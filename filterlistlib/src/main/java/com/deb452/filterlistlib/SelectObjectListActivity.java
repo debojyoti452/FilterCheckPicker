@@ -1,30 +1,31 @@
 package com.deb452.filterlistlib;
 
+import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.content.Context;
-import android.os.Bundle;
-import android.widget.Toast;
-
 import com.deb452.filterlistlib.adapter_classes.ItemListAdapter;
 import com.deb452.filterlistlib.adapter_classes.SelectedListAdapter;
 import com.deb452.filterlistlib.customviews_classes.LineDividerDecoration;
-import com.deb452.filterlistlib.interface_classes.RecyclerViewOnClickListener;
 import com.deb452.filterlistlib.model_classes.ItemListModel;
-import com.deb452.filterlistlib.model_classes.SelectedListModel;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 public class SelectObjectListActivity extends AppCompatActivity {
 
     private Context context = SelectObjectListActivity.this;
+    public static final String RESULT_SELECTED_LIST_KEY = "result_selected_key";
     private ItemListAdapter itemListAdapter;
     private SelectedListAdapter selectedListAdapter;
     private List<ItemListModel> listModelList = new ArrayList<>();
     private List<ItemListModel> selectedListModelList = new ArrayList<>();
+    private int limitSize;
     private Bundle bundle;
 
     //views
@@ -38,6 +39,7 @@ public class SelectObjectListActivity extends AppCompatActivity {
         bundle = getIntent().getExtras();
         if (bundle != null) {
             listModelList = (ArrayList<ItemListModel>) getIntent().getSerializableExtra("listModelKey");
+            limitSize = bundle.getInt("sizeKey", 0);
             settingViews();
         } else {
             finish();
@@ -48,19 +50,32 @@ public class SelectObjectListActivity extends AppCompatActivity {
     private void settingViews() {
         itemListAdapter = new ItemListAdapter(context, listModelList);
         selectedListAdapter = new SelectedListAdapter(context, selectedListModelList);
-        
+
         itemListAdapter.setRecyclerViewOnClickListener(position -> {
-            selectedListModelList.add(listModelList.get(position));
-            selectedListAdapter.notifyItemChanged(position);
+            if (selectedListModelList.size() < limitSize) {
+                selectedListModelList.add(listModelList.get(position));
+                selectedListRV.smoothScrollToPosition(position);
+                selectedListAdapter.notifyDataSetChanged();
+            } else {
+                System.out.println("Full Selected List");
+                finishPicking(selectedListModelList);
+            }
         });
-        
+
         selectedListAdapter.setRecyclerViewOnClickListener(position -> {
             selectedListModelList.remove(position);
-            selectedListAdapter.notifyItemChanged(position);
+            selectedListAdapter.notifyDataSetChanged();
         });
-        
+
         selectedListRV.setAdapter(selectedListAdapter);
         itemListRV.setAdapter(itemListAdapter);
+    }
+
+    private void finishPicking(List<ItemListModel> selectedListModelList) {
+        Intent result = new Intent();
+        result.putExtra(RESULT_SELECTED_LIST_KEY, (Serializable) selectedListModelList);
+        setResult(RESULT_OK, result);
+        finish();
     }
 
     private void init() {
@@ -70,6 +85,12 @@ public class SelectObjectListActivity extends AppCompatActivity {
         itemListRV.setLayoutManager(new LinearLayoutManager(context));
         itemListRV.addItemDecoration(new LineDividerDecoration(getDrawable(R.drawable.divider)));
 
-        selectedListRV.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false));
+        //selected List
+        LinearLayoutManager selectedLayoutManager = new LinearLayoutManager(context);
+        selectedLayoutManager.setOrientation(RecyclerView.HORIZONTAL);
+        selectedLayoutManager.setReverseLayout(true);
+        selectedLayoutManager.setStackFromEnd(true);
+        selectedListRV.setLayoutManager(selectedLayoutManager);
     }
+
 }
