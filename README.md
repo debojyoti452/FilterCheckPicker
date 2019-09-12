@@ -1,5 +1,5 @@
 # FilterCheckPicker
-[![API](https://img.shields.io/badge/API-19%2B-brightgreen.svg?style=flat)](https://android-arsenal.com/api?level=19) [![](https://www.jitpack.io/v/debojyoti452/FilterCheckPicker.svg)](https://www.jitpack.io/#debojyoti452/FilterCheckPicker) [![Codacy Badge](https://api.codacy.com/project/badge/Grade/f209f07f47744602b582c6103e30d485)](https://www.codacy.com/manual/debojyoti452/FilterCheck?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=debojyoti452/FilterCheck&amp;utm_campaign=Badge_Grade)
+[![API](https://img.shields.io/badge/API-21%2B-brightgreen.svg?style=flat)](https://android-arsenal.com/api?level=21) [![](https://www.jitpack.io/v/debojyoti452/FilterCheckPicker.svg)](https://www.jitpack.io/#debojyoti452/FilterCheckPicker) [![Codacy Badge](https://api.codacy.com/project/badge/Grade/f209f07f47744602b582c6103e30d485)](https://www.codacy.com/manual/debojyoti452/FilterCheck?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=debojyoti452/FilterCheck&amp;utm_campaign=Badge_Grade)
 
 ## Version
 #### Tag = 1.0
