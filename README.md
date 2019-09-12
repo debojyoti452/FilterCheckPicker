@@ -1,5 +1,5 @@
-# FilterCheck
-[![API](https://img.shields.io/badge/API-19%2B-brightgreen.svg?style=flat)](https://android-arsenal.com/api?level=19) [![](https://www.jitpack.io/v/debojyoti452/FilterCheck.svg)](https://www.jitpack.io/#debojyoti452/FilterCheck) 
+# FilterCheckPicker
+[![API](https://img.shields.io/badge/API-19%2B-brightgreen.svg?style=flat)](https://android-arsenal.com/api?level=19) [![](https://www.jitpack.io/v/debojyoti452/FilterCheck.svg)](https://www.jitpack.io/#debojyoti452/FilterCheck) [![Codacy Badge](https://api.codacy.com/project/badge/Grade/f209f07f47744602b582c6103e30d485)](https://www.codacy.com/manual/debojyoti452/FilterCheck?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=debojyoti452/FilterCheck&amp;utm_campaign=Badge_Grade)
 
 ## Version
 #### Tag = 1.0
@@ -9,7 +9,7 @@
 </p>
 
 ## Description
-<b>You can now fit your textview automatically and even by using these library you can directly customize your font through XML implementation. You can check sample folder for futher explanation.</b>
+<b>If you use these library your life will get little easier. It can be used for picking multiple items and get the result back as an arraylist. You can use it in your contact list or spinner data, it can be customized as you want it.</b>
 
 ## Requirement
 * Must use AndroidX
@@ -32,21 +32,61 @@ dependencies {
 ```
 
 ## Code Sample
-#### XML Implementation
-```xml
-<com.dev452.ultimatetextview.UltimateTextView
-            android:id="@+id/textViewDemo"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:text="@string/app_name"
-            android:textSize="22sp"
-            android:maxLines="3"
-            app:UTVAutoFitEnabled="true"
-            app:UTVFonts="@string/exo_semibold"
-            app:UTVMinTextSize="12sp"
-            app:UTVSingleLine="false" />
+#### Code Implementation
+* Declare the Variables. <b>Please note that, pass only ItemListModel class, it will take only string name.</b>
+```kotlin
+    private var REQUEST_CODE = 5
+    private var listItem: ArrayList<ItemListModel> = ArrayList()
+    private var selectedList: ArrayList<ItemListModel> = ArrayList()
 ```
+* Generate the data for list items or you can simply fetch it from you server or database.
+```kotlin
+    private fun generateListItem(): ArrayList<ItemListModel> {
+        val list: ArrayList<ItemListModel> = ArrayList()
+        list.add(ItemListModel("Sun"))
+        list.add(ItemListModel("Mercury"))
+        list.add(ItemListModel("Venus"))
+        list.add(ItemListModel("Earth"))
+        list.add(ItemListModel("Mars"))
+        list.add(ItemListModel("Jupiter"))
+        list.add(ItemListModel("Saturn"))
+        list.add(ItemListModel("Neptune"))
+        list.add(ItemListModel("Uranus"))
+        list.add(ItemListModel("Pluto"))
+        return list
+    }
+```
+* Pass the Activity Context or Fragment Context through the builder method.
+```kotlin
+button!!.setOnClickListener {
+            listItem = generateListItem()
+            FilterCheck.Builder(this)
+                .setLists(listItem)
+                .setLimitsOfSelections(3)
+                .GetPickerForResult(REQUEST_CODE)
+        }
+```
+* Get the result by calling onActivityResult method
+```kotlin
+override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == REQUEST_CODE && resultCode == Activity.RESULT_OK && data != null && data.extras != null) {
+            selectedList = data.getSerializableExtra(SelectObjectListActivity.RESULT_SELECTED_LIST_KEY) as ArrayList<ItemListModel>
+
+            for (i in 0 until selectedList.size){
+                Log.d("GotList", selectedList[i].getNameList())
+            }
+
+        } else {
+            throw Exception("Not get any data..")
+        }
+    }
+```
+
+## Method Showcase
+* setLists - call this method to pass the item list. 
+* setLimitsOfSelections - call this method to pass the limit for selection. Default value is 3
+* GetPickerForResult - call this method to pass the Integer requestCode
 
 ## License
 >GNU General Public License v3.0
