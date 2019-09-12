@@ -43,7 +43,7 @@ public class SelectObjectListActivity extends AppCompatActivity {
         bundle = getIntent().getExtras();
         if (bundle != null) {
             listModelList = (ArrayList<ItemListModel>) getIntent().getSerializableExtra("listModelKey");
-            limitSize = bundle.getInt("sizeKey", 0);
+            limitSize = bundle.getInt("sizeKey", 3);
             settingViews();
         } else {
             finish();
@@ -54,8 +54,6 @@ public class SelectObjectListActivity extends AppCompatActivity {
     private void settingViews() {
         itemListAdapter = new ItemListAdapter(context, listModelList);
         selectedListAdapter = new SelectedListAdapter(context, selectedListModelList);
-
-
 
         itemListAdapter.setRecyclerViewOnClickListener(position -> {
             if (selectedListModelList.size() < limitSize) {

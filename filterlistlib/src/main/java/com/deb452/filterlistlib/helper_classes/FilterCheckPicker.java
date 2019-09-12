@@ -18,7 +18,7 @@ import java.util.List;
 /**
  * Created by Debojyoti Singha on 11,September,2019.
  */
-public class FilterCheck {
+public class FilterCheckPicker {
 
     public static class Builder implements Serializable {
         protected transient Activity activity;

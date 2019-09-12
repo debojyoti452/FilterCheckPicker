@@ -8,7 +8,7 @@ import android.util.Log
 import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
 import com.deb452.filterlistlib.SelectObjectListActivity
-import com.deb452.filterlistlib.helper_classes.FilterCheck
+import com.deb452.filterlistlib.helper_classes.FilterCheckPicker
 import com.deb452.filterlistlib.model_classes.ItemListModel
 
 class MainActivity : AppCompatActivity() {
@@ -27,8 +27,7 @@ class MainActivity : AppCompatActivity() {
 
         button!!.setOnClickListener {
             listItem = generateListItem()
-
-            FilterCheck.Builder(this)
+            FilterCheckPicker.Builder(this)
                 .setLists(listItem)
                 .setLimitsOfSelections(3)
                 .GetPickerForResult(REQUEST_CODE)
