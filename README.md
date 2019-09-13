@@ -63,6 +63,7 @@ button!!.setOnClickListener {
             FilterCheckPicker.Builder(this)
                 .setLists(listItem)
                 .setLimitsOfSelections(3)
+		.setShowFinishButton(true)
                 .GetPickerForResult(REQUEST_CODE)
         }
 ```
@@ -86,6 +87,7 @@ override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) 
 ## Method Showcase
 * setLists - call this method to pass the item list. 
 * setLimitsOfSelections - call this method to pass the limit for selection. Default value is 3
+* setShowFinishButton - call this method to setVisibility for Finish Button. Default value is true
 * GetPickerForResult - call this method to pass the Integer requestCode
 
 ## License
