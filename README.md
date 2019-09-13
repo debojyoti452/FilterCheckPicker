@@ -1,11 +1,11 @@
 # FilterCheckPicker
-[![API](https://img.shields.io/badge/API-19%2B-brightgreen.svg?style=flat)](https://android-arsenal.com/api?level=19) [![](https://www.jitpack.io/v/debojyoti452/FilterCheck.svg)](https://www.jitpack.io/#debojyoti452/FilterCheck) [![Codacy Badge](https://api.codacy.com/project/badge/Grade/f209f07f47744602b582c6103e30d485)](https://www.codacy.com/manual/debojyoti452/FilterCheck?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=debojyoti452/FilterCheck&amp;utm_campaign=Badge_Grade)
+[![API](https://img.shields.io/badge/API-21%2B-brightgreen.svg?style=flat)](https://android-arsenal.com/api?level=21) [![](https://www.jitpack.io/v/debojyoti452/FilterCheckPicker.svg)](https://www.jitpack.io/#debojyoti452/FilterCheckPicker) [![Codacy Badge](https://api.codacy.com/project/badge/Grade/f209f07f47744602b582c6103e30d485)](https://www.codacy.com/manual/debojyoti452/FilterCheck?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=debojyoti452/FilterCheck&amp;utm_campaign=Badge_Grade)
 
 ## Version
-#### Tag = 1.0
+#### Tag = 1.1.0
 ## Sample
 <p align="center"> 
-<img src="images/screencapture-1568048103006.gif">
+<img src="demo/filter_check.gif">
 </p>
 
 ## Description
@@ -27,7 +27,7 @@ allprojects {
 #### App Level Gradle
 ```java
 dependencies {
-	        implementation 'com.github.debojyoti452:FilterCheck:Tag'
+	        implementation 'com.github.debojyoti452:FilterCheckPicker:Tag'
 	}
 ```
 
@@ -60,7 +60,7 @@ dependencies {
 ```kotlin
 button!!.setOnClickListener {
             listItem = generateListItem()
-            FilterCheck.Builder(this)
+            FilterCheckPicker.Builder(this)
                 .setLists(listItem)
                 .setLimitsOfSelections(3)
                 .GetPickerForResult(REQUEST_CODE)
