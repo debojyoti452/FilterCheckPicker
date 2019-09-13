@@ -51,7 +51,6 @@ class MainActivity : AppCompatActivity() {
                     tagView!!.tags = stringList
                 }
             }
-
         } else {
             throw Exception("Not get any data..")
         }
