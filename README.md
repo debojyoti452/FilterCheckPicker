@@ -14,10 +14,11 @@
 ## Requirement
 * Must use AndroidX
 * Kotlin Supported
+* Must use JAVA 8 CompileOptions
 
 ## Installation
 #### Project Level Gradle
-```java
+```gradle
 allprojects {
 		repositories {
 			maven { url 'https://www.jitpack.io' }
@@ -25,10 +26,17 @@ allprojects {
 	}
 ```
 #### App Level Gradle
-```java
+```gradle
 dependencies {
 	        implementation 'com.github.debojyoti452:FilterCheckPicker:Tag'
 	}
+```
+#### JAVA 8 
+```gradle
+compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
 ```
 
 ## Code Sample
