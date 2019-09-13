@@ -29,6 +29,7 @@ public class SelectObjectListActivity extends AppCompatActivity {
     private List<ItemListModel> listModelList = new ArrayList<>();
     private List<ItemListModel> selectedListModelList = new ArrayList<>();
     private int limitSize;
+    private boolean isVisible;
     private Bundle bundle;
 
     //views
@@ -44,6 +45,7 @@ public class SelectObjectListActivity extends AppCompatActivity {
         if (bundle != null) {
             listModelList = (ArrayList<ItemListModel>) getIntent().getSerializableExtra("listModelKey");
             limitSize = bundle.getInt("sizeKey", 3);
+            isVisible = bundle.getBoolean("isVisibleKey");
             settingViews();
         } else {
             finish();
@@ -52,6 +54,13 @@ public class SelectObjectListActivity extends AppCompatActivity {
     }
 
     private void settingViews() {
+
+        if (isVisible){
+            finishButton.setVisibility(View.VISIBLE);
+        } else {
+            finishButton.setVisibility(View.GONE);
+        }
+
         itemListAdapter = new ItemListAdapter(context, listModelList);
         selectedListAdapter = new SelectedListAdapter(context, selectedListModelList);
 
@@ -60,18 +69,15 @@ public class SelectObjectListActivity extends AppCompatActivity {
                 selectedListModelList.add(listModelList.get(position));
                 selectedListRV.smoothScrollToPosition(position);
                 selectedListAdapter.notifyDataSetChanged();
-                finishButton.setVisibility(View.GONE);
             } else {
                 System.out.println("Full Selected List");
                 Toast.makeText(context, "You can select only " + limitSize + " items", Toast.LENGTH_SHORT).show();
-                finishButton.setVisibility(View.VISIBLE);
             }
         });
 
         selectedListAdapter.setRecyclerViewOnClickListener(position -> {
             selectedListModelList.remove(position);
             selectedListAdapter.notifyDataSetChanged();
-            finishButton.setVisibility(View.GONE);
         });
 
         finishButton.setOnClickListener(view -> finishPicking(selectedListModelList));

@@ -26,6 +26,7 @@ public class FilterCheckPicker {
         protected transient Context context;
         protected List<ItemListModel> itemListModels = new ArrayList<>();
         protected int limitOfSelections;
+        protected boolean isVisible;
 
         public Builder(@NonNull Context context) {
             this.context = context;
@@ -49,17 +50,24 @@ public class FilterCheckPicker {
             return this;
         }
 
+        public Builder setShowFinishButton(boolean isVisible){
+            this.isVisible = isVisible;
+            return this;
+        }
+
         public void GetPickerForResult(int requestCode) {
             if (activity != null) {
                 Intent intent = new Intent(activity, SelectObjectListActivity.class);
                 intent.putExtra("listModelKey", (Serializable) itemListModels);
                 intent.putExtra("sizeKey", limitOfSelections);
+                intent.putExtra("isVisibleKey", isVisible);
                 activity.startActivityForResult(intent, requestCode);
             } else if (fragment != null) {
                 if (fragment.getActivity() != null) {
                     Intent intent = new Intent(fragment.getActivity(), SelectObjectListActivity.class);
                     intent.putExtra("listModelKey", (Serializable) itemListModels);
                     intent.putExtra("sizeKey", limitOfSelections);
+                    intent.putExtra("isVisibleKey", isVisible);
                     fragment.startActivityForResult(intent, requestCode);
                 }
             } else {

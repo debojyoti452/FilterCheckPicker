@@ -33,6 +33,7 @@ class MainActivity : AppCompatActivity() {
             FilterCheckPicker.Builder(this)
                 .setLists(listItem)
                 .setLimitsOfSelections(3)
+                .setShowFinishButton(true)
                 .GetPickerForResult(REQUEST_CODE)
         }
     }
