@@ -58,7 +58,7 @@ public class ItemListAdapter extends RecyclerView.Adapter<ItemListAdapter.ItemLi
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    recyclerViewOnClickListener.onClicked(getAdapterPosition());
+                    recyclerViewOnClickListener.OnClicked(getAdapterPosition());
                 }
             });
         }

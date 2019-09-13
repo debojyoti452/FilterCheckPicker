@@ -47,8 +47,8 @@ class MainActivity : AppCompatActivity() {
 
             if (selectedList.size != 0) {
                 for (i in 0 until selectedList.size) {
-                    Log.d("GotList", selectedList[i].getNameList())
-                    stringList.addAll(listOf(selectedList[i].getNameList()))
+                    Log.d("GotList", selectedList[i].nameList!!)
+                    stringList.addAll(listOf(selectedList[i].nameList!!))
                     tagView!!.tags = stringList
                 }
             }

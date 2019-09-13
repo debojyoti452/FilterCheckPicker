@@ -58,7 +58,7 @@ public class SelectedListAdapter extends RecyclerView.Adapter<SelectedListAdapte
             super(itemView);
             selectedItemTV = itemView.findViewById(R.id.selectedItemName);
 
-            itemView.setOnClickListener(view -> recyclerViewOnClickListener.onClicked(getAdapterPosition()));
+            itemView.setOnClickListener(view -> recyclerViewOnClickListener.OnClicked(getAdapterPosition()));
         }
     }
 }
